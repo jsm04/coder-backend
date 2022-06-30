@@ -6,14 +6,16 @@ class User {
 		this.mascotas = [];
 	}
 	getFullName = () => {
+		console.log(`${this.nombre} ${this.apellido}`);
 		return `${this.nombre} ${this.apellido}`;
 	};
 
-	addMascota = (mascota) => {
-		this.mascotas.push(mascota);
+	addMascota = (...mascota) => {
+		this.mascotas.push(...mascota);
 	};
 
 	countMascotas = () => {
+		console.log(Number(this.mascotas.length));
 		return Number(this.mascotas.length);
 	};
 
@@ -25,28 +27,31 @@ class User {
 	};
 
 	getBooksNames() {
+		console.log(this.libros.map((libro) => libro.nombre));
 		return this.libros.map((libro) => libro.nombre);
 	}
 
 	// test
 	displayAll() {
-		return `${this.getFullName()} tiene ${
-			this.countMascotas() > 1
-				? this.countMascotas() + ' mascotas'
-				: this.countMascotas() + ' mascota'
-		} y le gustan los siguientes libros: ${this.getBooksNames()}`;
+		console.log(
+			`${this.getFullName()} tiene ${
+				this.countMascotas() > 1
+					? this.countMascotas() + ' mascotas'
+					: this.countMascotas() + ' mascota'
+			} y le gustan los siguientes libros: ${
+				this.getBooksNames() + '.'
+			}`
+		);
 	}
 }
 
-const cl = (arg) => {
-	console.log(arg);
-};
 
 const User1 = new User('Pedro', 'Lopez');
-User1.addMascota('Perro');
-User1.addMascota('Gato');
-User1.addBook('Pulp fiction', 'Quentin Tarantino');
-User1.addBook('Bastardos sin gloria', 'Quentin Tarantino');
-cl(User1.countMascotas());
-cl(User1.getBooksNames());
-cl(User1.displayAll());
+User1.getFullName();
+User1.addMascota('Perro', 'Gato');
+User1.addMascota('Loro');
+User1.addBook('El senor de las moscas', 'William Goldin');
+User1.addBook('Don quijote', 'Miguel de Cervantes');
+User1.countMascotas();
+User1.getBooksNames();
+User1.displayAll();
