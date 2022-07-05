@@ -16,9 +16,7 @@
 // deleteAll(): void: elimina todos los objetos del archivo.
 
 const fs = require('fs');
-const pathModule = require('path');
 const path = './files/products.json';
-console.log(pathModule.resolve(path));
 
 class ProductosManager {
 	getAllProducts = async () => {
