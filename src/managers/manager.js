@@ -1,22 +1,16 @@
 //  TODO
-// implementar programa que contenga una clase llamada Contenedor que reciba el nombre del archivo
-// con el que va a trabajar e implmente los siguientes metodos:
 
-// save(Object): Number: recibe un objeto, lo guarda en el archivo, devuelve el id asignado. (El id debe ser siempre uno mas que ultimo objeto agregado(o id 1 si es el primer objeto que se agrega) y no puede estar repetido.
-
-// hay que tomar en consideracion el contenido previo del archivo.
-// implementar el manejo de arhivos utilizando promesas con async/await y manejo de errores.
-// Probar el modulo creando un contenedor de productos, que se guarde en el archivo: 'productos.txt'
-// incluir un llamado de prueba a cada metodo.
-// El formato de cada producto debe ser: title,price,thumbnail(url).
-
-// get(id): Object: recibe un id, devuelve el objeto con ese id, o null si no esta.
-// getAll(): Array: devuelve un array con todos los objetos presentes en el archivo.
-// delete(id): void: recibe un id, elimina el objeto con ese id, devuelve el id eliminado.
+// get(id): Object: / getById() => recibe un id, devuelve el objeto con ese id, o null si no esta.
+// getAll(): / getAllProducts() => Array: devuelve un array con todos los objetos presentes en el archivo.
+// delete(id): void / deleteById() => recibe un id, elimina el objeto con ese id, devuelve el id eliminado.
 // deleteAll(): void: elimina todos los objetos del archivo.
 
+// OTROS
+// saveProduct() => guarda el producto
+// showAllProducts() => console.log de todos los productos
+
 const fs = require('fs');
-const path = './files/products.json';
+const path = './src/files/products.json';
 
 class ProductosManager {
 	getAllProducts = async () => {
@@ -33,26 +27,70 @@ class ProductosManager {
 		}
 	};
 
-	addProduct = async (product) => {
+	showAllProducts = async () => {
+		try {
+			let fileData = await fs.promises.readFile(path, 'utf8');
+			let products = JSON.parse(fileData);
+			console.log(products);
+		} catch {
+			console.log('Cannot showAll: ' + error);
+		}
+	};
+
+	saveProduct = async (product) => {
 		try {
 			let products = await this.getAllProducts();
 			if (products.length === 0) {
 				product.id = 1;
 				products.push(product);
-				await fs.promises.writeFile(
-					path,
-					JSON.stringify(products, null, '\t')
-				);
+				await fs.promises.writeFile(path, JSON.stringify(products, null, '\t'));
 			} else {
 				product.id = products[products.length - 1].id + 1;
 				products.push(product);
-				await fs.promises.writeFile(
-					path,
-					JSON.stringify(products, null, '\t')
-				);
+				await fs.promises.writeFile(path, JSON.stringify(products, null, '\t'));
 			}
 		} catch (error) {
-			console.log('Cannot write file: ' + error);
+			console.log('Cannot saveProduct to file: ' + error);
+		}
+	};
+
+	getById = async (itemId) => {
+		try {
+			let products = await this.getAllProducts();
+			for (let i = 0; i < products.length; i++) {
+				if (products[i].id === itemId) {
+					return console.log(products[i]);
+				}
+			}
+			return console.log(null);
+		} catch {
+			console.log('Cannot getById: ' + error);
+		}
+	};
+
+	deleteById = async (itemId) => {
+		try {
+			let products = await this.getAllProducts();
+			for (let i = 0; i < products.length; i++) {
+				if (products[i].id === itemId) {
+					products.splice(i, 1);
+					console.log(`item with id ${itemId} was deleted`);
+					break;
+				}
+			}
+			await fs.promises.writeFile(path, JSON.stringify(products, null, '\t'));
+		} catch {
+			console.log('Cannot deleteById: ' + error);
+		}
+	};
+
+	deleteAll = async () => {
+		try {
+			let products = await this.getAllProducts();
+			products.splice(0, products.length);
+			await fs.promises.writeFile(path, JSON.stringify(products, null, '\t'));
+		} catch {
+			console.log('Cannot deleteAll: ' + error);
 		}
 	};
 }
