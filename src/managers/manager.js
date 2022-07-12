@@ -1,15 +1,4 @@
-//  TODO
-
-// get(id): Object: / getById() => recibe un id, devuelve el objeto con ese id, o null si no esta.
-// getAll(): / getAllProducts() => Array: devuelve un array con todos los objetos presentes en el archivo.
-// delete(id): void / deleteById() => recibe un id, elimina el objeto con ese id, devuelve el id eliminado.
-// deleteAll(): void: elimina todos los objetos del archivo.
-
-// OTROS
-// saveProduct() => guarda el producto
-// showAllProducts() => console.log de todos los productos
-
-const fs = require('fs');
+import fs from 'fs';
 const path = './src/files/products.json';
 
 class ProductosManager {
@@ -24,16 +13,6 @@ class ProductosManager {
 			}
 		} catch (error) {
 			console.log('Cannot read File: ' + error);
-		}
-	};
-
-	showAllProducts = async () => {
-		try {
-			let fileData = await fs.promises.readFile(path, 'utf8');
-			let products = JSON.parse(fileData);
-			console.log(products);
-		} catch {
-			console.log('Cannot showAll: ' + error);
 		}
 	};
 
@@ -57,12 +36,7 @@ class ProductosManager {
 	getById = async (itemId) => {
 		try {
 			let products = await this.getAllProducts();
-			for (let i = 0; i < products.length; i++) {
-				if (products[i].id === itemId) {
-					return console.log(products[i]);
-				}
-			}
-			return console.log(null);
+			return console.log(products.find((product) => (product.id === itemId ? product : null)));
 		} catch {
 			console.log('Cannot getById: ' + error);
 		}
@@ -71,14 +45,8 @@ class ProductosManager {
 	deleteById = async (itemId) => {
 		try {
 			let products = await this.getAllProducts();
-			for (let i = 0; i < products.length; i++) {
-				if (products[i].id === itemId) {
-					products.splice(i, 1);
-					console.log(`item with id ${itemId} was deleted`);
-					break;
-				}
-			}
-			await fs.promises.writeFile(path, JSON.stringify(products, null, '\t'));
+			let filteredProducts = products.filter((product) => product.id !== itemId);
+			await fs.promises.writeFile(path, JSON.stringify(filteredProducts, null, '\t'));
 		} catch {
 			console.log('Cannot deleteById: ' + error);
 		}
@@ -86,8 +54,7 @@ class ProductosManager {
 
 	deleteAll = async () => {
 		try {
-			let products = await this.getAllProducts();
-			products.splice(0, products.length);
+			let products = [];
 			await fs.promises.writeFile(path, JSON.stringify(products, null, '\t'));
 		} catch {
 			console.log('Cannot deleteAll: ' + error);
@@ -95,4 +62,4 @@ class ProductosManager {
 	};
 }
 
-module.exports = ProductosManager;
+export default ProductosManager;

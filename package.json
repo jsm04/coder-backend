@@ -15,5 +15,9 @@
 	"bugs": {
 		"url": "https://github.com/jsm04/coder-backend/issues"
 	},
-	"homepage": "https://github.com/jsm04/coder-backend#readme"
+	"homepage": "https://github.com/jsm04/coder-backend#readme",
+	"type": "module",
+	"devDependencies": {
+		"@faker-js/faker": "^7.3.0"
+	}
 }

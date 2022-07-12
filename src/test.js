@@ -1,5 +1,6 @@
-const ProductsManager = require('./managers/manager.js');
+import ProductsManager from './managers/manager.js';
 const productsService = new ProductsManager();
+
 const enviroment = async () => {
 	let products = await productsService.getAllProducts();
 	let product = {
@@ -8,10 +9,9 @@ const enviroment = async () => {
 		thumbnail: 'https://picsum.photos/id/650/200/300',
 		id: 1,
 	};
-	// await productsService.showAllProducts();
 	// await productsService.saveProduct(product);
-	// await productsService.getById(5);
-	// await productsService.deleteById(7);
+	// await productsService.getById();
+	// await productsService.deleteById();
 	// await productsService.deleteAll();
 };
 

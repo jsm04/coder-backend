@@ -22,17 +22,5 @@
 		"price": 124,
 		"thumbnail": "https://picsum.photos/id/650/200/300",
 		"id": 4
-	},
-	{
-		"title": "El quinto",
-		"price": 554,
-		"thumbnail": "https://picsum.photos/id/750/200/300",
-		"id": 5
-	},
-	{
-		"title": "Prueba",
-		"price": 444,
-		"thumbnail": "https://picsum.photos/id/650/200/300",
-		"id": 7
 	}
 ]
