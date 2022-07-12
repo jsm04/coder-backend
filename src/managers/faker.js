@@ -13,19 +13,23 @@ class FakeProductsManager extends ProductosManager {
 		};
 	}
 
-	// createRandomProductArray(number) {
-	// 	let products = [];
-	// 	Array.from({ length: number }).forEach(() => {
-	// 		products.push(this.createRandomProduct());
-	// 	});
-	// 	return products;
-	// }
-
-	async setFakeProduct() {
+	async addFakeProduct() {
 		try {
-			this.saveProduct(this.createRandomProduct());
+			await this.saveProduct(this.createRandomProduct());
 		} catch (error) {
 			console.log('setFakeProducts: ' + error);
+		}
+	}
+
+	async addFakeProductsInNumbers(number) {
+		try {
+			let counter = 0;
+			while (counter < number) {
+				await this.addFakeProduct();
+				counter++;
+			}
+		} catch (error) {
+			console.log(error);
 		}
 	}
 }

@@ -6,12 +6,7 @@ const fakerService = new FakeProductsManager();
 
 const enviroment = async () => {
 	let products = await productsService.getAllProducts();
-	// await fakerService.setFakeProduct();
-	await fakerService.createRandomProductArray(10);
-	// await productsService.saveProduct(product);
-	// await productsService.getById();
-	// await productsService.deleteById();
-	// await productsService.deleteAll();
+	// await fakerService.addFakeProductsInNumbers(20);
 };
 
 enviroment();
