@@ -1,7 +1,7 @@
 import fs from 'fs';
 const path = './src/files/products.json';
 
-class ProductosManager {
+class ProductsManager {
 	getAllProducts = async () => {
 		try {
 			if (fs.existsSync(path)) {
@@ -36,7 +36,7 @@ class ProductosManager {
 	getById = async (itemId) => {
 		try {
 			let products = await this.getAllProducts();
-			return console.log(products.find((product) => (product.id === itemId ? product : null)));
+			return products.find((product) => (product.id === itemId ? product : null));
 		} catch {
 			console.log('Cannot getById: ' + error);
 		}
@@ -62,4 +62,4 @@ class ProductosManager {
 	};
 }
 
-export default ProductosManager;
+export default ProductsManager;

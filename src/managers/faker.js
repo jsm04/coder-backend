@@ -1,15 +1,13 @@
 import { faker } from '@faker-js/faker';
 import ProductosManager from './manager.js';
 
-class FakeProductsManager extends ProductosManager {
+class FakerProductsManager extends ProductosManager {
 	createRandomProduct() {
 		faker.locale = 'es';
 		return {
-			product: faker.commerce.productName(),
-			price: faker.commerce.price(),
+			productTitle: faker.commerce.productName(),
 			productImage: faker.image.cats(640, 480, true),
-			userId: faker.datatype.uuid(),
-			description: faker.lorem.paragraph(),
+			price: faker.commerce.price(),
 		};
 	}
 
@@ -21,7 +19,7 @@ class FakeProductsManager extends ProductosManager {
 		}
 	}
 
-	async addFakeProductsInNumbers(number) {
+	async addFakeProductsAmmount(number) {
 		try {
 			let counter = 0;
 			while (counter < number) {
@@ -34,4 +32,4 @@ class FakeProductsManager extends ProductosManager {
 	}
 }
 
-export default FakeProductsManager;
+export default FakerProductsManager;
