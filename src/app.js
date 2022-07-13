@@ -43,7 +43,7 @@ app.get('/productos/:itemId', async (req, res) => {
 	let itemId = parseInt(request);
 	let getItemById = await productsService.getById(itemId);
 	if (productList.length < itemId) {
-		return res.send({ error: 'No existe el producto' });
+		return res.send({ error: 'No existe producto con ese Id' });
 	}
 
 	res.send({ product: getItemById });
